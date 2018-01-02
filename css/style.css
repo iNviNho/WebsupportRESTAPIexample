@@ -1,4 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     margin: 0px;
     padding: 0px;
+    font-size: 15px;
+    font-family: "Arial";
+}
+
+h1, ul, li {
+    margin: 0px;
+    padding: 0px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+}
+
+.message {
+    padding: 15px;
+    text-align: right;
+}
+
+.error {
+    background: #D51616;
+    color: #FFF;
+}
+
+.success {
+    background: darkgreen;
+    color: #FFF;
+}
+
+.clear {
+    clear: both;
+}
+
+.header,
+.left-side-menu {
+    background: #000;
+    color: #FFF;
+}
+
+.left-side-menu a {
+    display: inline-block;
+    padding: 15px;
+    width: 100%;
+    transition: all .15s linear;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.left-side-menu a:hover, .left-side-menu a.active {
+    background: #FFF;
+    color: #000;
+}
+
+.header {
+    height: 75px;
+}
+
+.header h1 {
+    padding: 20px;
+}
+
+.container .left-side-menu {
+    position: relative;
+    float: left;
+    width: 300px;
+    height: calc(100vh - 75px);
+}
+
+.container .left-side-menu .signature {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 0px;
+    font-style: italic;
+}
+
+.container .right-side-menu {
+    float: right;
+    width: calc(100% - 300px)
+}
+
+.content {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+table thead th {
+    background: #cecece;
+    padding: 5px;
+}
+
+table tbody td {
+    background: #efefef;
+    padding: 5px;
 }
