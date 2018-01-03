@@ -3,7 +3,7 @@
 require "./curl/Curl.php";
 require "./vendor/tracy/tracy/src/tracy.php";
 
-Tracy\Debugger::enable();
+Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
 
 // we always have to have action set
 if (isset($_GET["action"])) {
