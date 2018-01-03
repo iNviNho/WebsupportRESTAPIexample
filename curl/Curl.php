@@ -10,7 +10,10 @@ class Curl {
     const USERNAME = "ws-php-assignment";
     const PASSWORD = "password";
     
+    /* USER ID */
     private $id;
+    
+    /* DOMAIN */
     private $domain;
     
     public function __construct($domain = "php-assignment.eu") {
@@ -18,6 +21,10 @@ class Curl {
         $this->domain = $domain;
     }
     
+    /*
+     * We could use "self" but we can also find user ID through API and use it 
+     * in all of our requests
+     */
     private function setupID() {
         
         $curl = curl_init("https://rest.websupport.sk/v1/user");
@@ -32,6 +39,10 @@ class Curl {
         $this->setID($arr->items[0]->id);
     }
     
+    /**
+     * Get all DNS records
+     * @return []
+     */
     public function getAllRecords() {
         
         $curl = curl_init("https://rest.websupport.sk/v1/user/$this->id/zone/$this->domain/record");
@@ -47,14 +58,17 @@ class Curl {
         return $arr->items;
     }
     
+    /**
+     * Adds record to DNS
+     * @param [] $params
+     * @return []
+     */
     public function addRecord($params) {
         
         $curl = curl_init("https://rest.websupport.sk/v1/user/$this->id/zone/$this->domain/record");
 
         $jsonparams = json_encode($params);
-//        dump($jsonparams);
-//        die();
-        
+
         curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonparams); 
         curl_setopt($curl, CURLOPT_USERPWD, $this->getCredentials());
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
@@ -64,10 +78,14 @@ class Curl {
         $result = curl_exec($curl);
         
         $arr = json_decode($result);
-//        dump($arr);
         return $arr;
     }
     
+    /**
+     * Deletes record by given ID
+     * @param int $id
+     * @return []
+     */
     public function deleteRecord($id) {
         
         $curl = curl_init("https://rest.websupport.sk/v1/user/$this->id/zone/$this->domain/record/$id");
@@ -84,6 +102,10 @@ class Curl {
         return $arr;
     }
     
+    /**
+     * We concatenate credentials for CURLOPT_USERPWD
+     * @return string
+     */
     private function getCredentials() {
         return self::USERNAME . ":" . self::PASSWORD;
     }
