@@ -1,10 +1,13 @@
 <?php
 
-$curl = new Curl();
+$curl = new iNviNho\Curl();
 
-
+// if form was sent
 if (isset($_GET["addRecord"])) {
     
+    // we prepare params from form
+    // if we want to be more precise we should work with it as an object
+    // and check if params are valid and maybe escape them
     $params = [
       "type" => $_POST["type"],
       "name" => $_POST["name"], 
@@ -15,7 +18,11 @@ if (isset($_GET["addRecord"])) {
       "ttl" => $_POST["ttl"]
     ];
     
+    // do curl post request
     $response = $curl->addRecord($params);
+    
+    // simple check if we have status set to success
+    // we could also check status code
     if($response->status == "success") {
         echo "<p class='message success'>Záznam bol úspešne pridaný</p>";
     } else {
@@ -23,22 +30,32 @@ if (isset($_GET["addRecord"])) {
     }
 }
 
-
 $records = $curl->getAllRecords();
 
 ?>
+<h2>PRIDAŤ DNS ZÁZNAM</h2>
 
 <form action="index.php?action=add&addRecord=true" method="POST">
     
-    <input type="text" name="type">
-    <input type="text" name="name">
-    <input type="text" name="content">
-    <input type="text" name="prio">
-    <input type="text" name="port">
-    <input type="text" name="weight">
-    <input type="text" name="ttl">
+    <select name="type">
+        <option value="A">A</option>
+        <option value="MX">MX</option>
+        <option value="NS">NS</option>
+        <option value="TXT">TXT</option>
+        <option value="ANAME">ANAME</option>
+        <option value="CNAME">CNAME</option>
+        <option value="SRV">SRV</option>
+        <option value="AAAA">AAAA</option>
+    </select>
+    <input type="text" name="name" placeholder="Name">
+    <input type="text" name="content" placeholder="Content">
+    <input type="text" name="ttl" placeholder="TTL">
+    <input type="text" name="prio" placeholder="Prio">
+    <input type="text" name="port" placeholder="Port">
+    <input type="text" name="weight" placeholder="Weight">
     
     <input type="submit" name="submit" value="ADD RECORD">
+    <br class="clear">
     
 </form>
 

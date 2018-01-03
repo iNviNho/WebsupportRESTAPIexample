@@ -1,13 +1,11 @@
 <?php
 
-require './curl/Curl.php';
+require "./curl/Curl.php";
 require "./vendor/tracy/tracy/src/tracy.php";
 
-use Tracy\Debugger;
+Tracy\Debugger::enable();
 
-Debugger::enable();
-
-
+// we always have to have action set
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
@@ -21,12 +19,17 @@ if (isset($_GET["action"])) {
         <title>WEBSUPPORT ♥</title>
         
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="icon" type="image/png" href="https://www.websupport.sk/assets/8c4877dd/img/icons/favicon.png">
         
     </head>
     <body>
         
         <div class="header">
-            <h1>WEBSUPPORT ♥</h1>
+            <h1>
+                <a href="index.php">WEBSUPPORT</a>
+                <span class="right">♥</span>
+                <br class="clear">
+            </h1>
         </div>
         <div class="container">
             <div class="left-side-menu">
@@ -42,7 +45,7 @@ if (isset($_GET["action"])) {
             <div class="right-side-menu">
                 <div class="content">
                     <?php
-                        include "$action.php";
+                        include "blocks/$action.php";
                     ?>
                 </div>
             </div>

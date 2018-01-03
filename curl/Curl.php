@@ -1,5 +1,7 @@
 <?php
 
+namespace iNviNho;
+
 /**
  * @author Vladimír Vráb
  */
